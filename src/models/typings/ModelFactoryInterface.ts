@@ -8,6 +8,7 @@ import { QuestionerAttributes, QuestionerInstance } from '../Questioner';
 import { SubjectAttributes, SubjectInstance } from '../Subject';
 import { SettingAttributes, SettingInstance } from '../Setting';
 import { SemesterAttributes, SemesterInstance } from '../Semester';
+import { ReportAttributes, ReportInstance } from '../Report';
 
 interface Obj {
 	[s: string]: any;
@@ -25,4 +26,5 @@ export default interface ModelFactoryInterface extends Obj {
 	Subject: Sequelize.Model<SubjectInstance, SubjectAttributes>;
 	Setting: Sequelize.Model<SettingInstance, SettingAttributes>;
 	Semester: Sequelize.Model<SemesterInstance, SemesterAttributes>;
+	Report: Sequelize.Model<ReportInstance, ReportAttributes>;
 }

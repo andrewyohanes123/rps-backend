@@ -8,7 +8,7 @@ export interface PlanAttributes {
   file: string;
   description: {[any: string]: any}[];
   user_id?: number;
-  class_room_id?: number;
+  schedule_id?: number;
 	created_at?: Date;
 	updated_at?: Date;
 }
@@ -40,7 +40,7 @@ export const PlanFactory: Factory<PlanInstance, PlanAttributes> = (
 	>('plan', attributes, { underscored: true });
 
 	Plan.associate = (models: ModelFactoryInterface): void => {
-		Plan.belongsTo(models.ClassRoom, { onDelete: 'cascade' });
+		Plan.belongsTo(models.Schedule, { onDelete: 'cascade' });
 		Plan.belongsTo(models.User, { onDelete: 'cascade' });
 	};
 
