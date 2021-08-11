@@ -22,7 +22,7 @@ const plansRoutes: Routes = (
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const parsed: sequelize.FindOptions<PlanInstance> = Parser.parseQuery<PlanInstance>(
-                    req.query.q,
+                    `${req.query.q}`,
                     models,
                 );
                 const data: PaginatedResult<PlanInstance> = await models.Plan.findAndCountAll(parsed);

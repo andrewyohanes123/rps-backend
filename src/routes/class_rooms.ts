@@ -22,7 +22,7 @@ const classroomsRoutes: Routes = (
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const parsed: sequelize.FindOptions<ClassRoomInstance> = Parser.parseQuery<ClassRoomInstance>(
-                    req.query.q,
+                    `${req.query.q}`,
                     models,
                 );
                 const data: PaginatedResult<ClassRoomInstance> = await models.ClassRoom.findAndCountAll(parsed);

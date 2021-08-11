@@ -24,7 +24,7 @@ const usersRoute: Routes = (
 		a(
 			async (req: express.Request, res: express.Response): Promise<void> => {
 				const parsed: sequelize.FindOptions<UserInstance> = Parser.parseQuery<UserInstance>(
-					req.query.q,
+					`${req.query.q}`,
 					models,
 				);
 				const data: PaginatedResult<UserInstance> = await models.User.findAndCountAll(parsed);

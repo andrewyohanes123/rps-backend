@@ -10,6 +10,7 @@ const a: A = (handler: express.Handler): express.Handler => {
 		res: express.Response,
 		next: express.NextFunction,
 	): Promise<express.Handler> => {
+		// @ts-ignore
 		return Promise.resolve(handler(req, res, next)).catch(
 			(
 				err:

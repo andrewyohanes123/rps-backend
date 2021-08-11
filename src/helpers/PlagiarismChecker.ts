@@ -19,10 +19,10 @@ export class PlagiarismChecker {
         for (let i = 0; i < tasks.length; i++) {
             const task = tasks[i];
             const documents = await task.getDocuments();
-            console.log(documents.map((d) => d.participant_id));
+            console.log(documents.map((d: any) => d.participant_id));
             for (let j = 0; j < documents.length; j++) {
                 const document = documents[j];
-                const otherDocuments = documents.filter((d) => d.id !== document.id);
+                const otherDocuments = documents.filter((d: any) => d.id !== document.id);
                 console.log('For : ', document.participant_id);
                 for (let t = 0; t < otherDocuments.length; t++) {
                     const a = document;

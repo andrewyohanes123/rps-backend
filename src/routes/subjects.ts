@@ -22,7 +22,7 @@ const subjectsRoutes: Routes = (
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const parsed: sequelize.FindOptions<SubjectInstance> = Parser.parseQuery<SubjectInstance>(
-                    req.query.q,
+                    `${req.query.q}`,
                     models,
                 );
                 const data: PaginatedResult<SubjectInstance> = await models.Subject.findAndCountAll(parsed);
