@@ -55,6 +55,7 @@
     "@types/inquirer": "^6.5.0",
     "@types/joi": "^14.0.0",
     "@types/jsonwebtoken": "^8.3.0",
+    "@types/multer": "^1.4.7",
     "@types/pluralize": "^0.0.29",
     "@types/sequelize": "^4.27.32",
     "@types/socket.io": "^2.1.2",

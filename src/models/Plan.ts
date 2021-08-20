@@ -6,7 +6,6 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 export interface PlanAttributes {
 	id?: number;
   file: string;
-  description: {[any: string]: any}[];
   user_id?: number;
   schedule_id?: number;
 	created_at?: Date;
@@ -27,10 +26,6 @@ export const PlanFactory: Factory<PlanInstance, PlanAttributes> = (
 	const attributes: SequelizeAttributes<PlanAttributes> = {
     file: {
       type: DataTypes.TEXT,
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.JSONB,
       allowNull: false
     }
 	};

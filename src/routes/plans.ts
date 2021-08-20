@@ -1,5 +1,7 @@
 
 import express from 'express';
+import multer from 'multer'
+import path from 'path'
 import ModelFactoryInterface from '../models/typings/ModelFactoryInterface';
 import { Routes } from './typings/RouteInterface';
 import a from '../middlewares/wrapper/a';
@@ -9,6 +11,18 @@ import sequelize from 'sequelize';
 import { Parser } from '../helpers/Parser';
 import NotFoundError from '../classes/NotFoundError';
 import { PlanInstance, PlanAttributes } from '../models/Plan';
+
+const multerStorage: multer.StorageEngine = multer.diskStorage({
+    filename: (req, file, cb) => {
+        const date = new Date().toISOString().replace(/\:/g, "");
+        cb(null, `${date}.${file.originalname}`);
+    },
+    destination: path.resolve(__dirname, '..', '..', 'uploads')
+})
+
+type multerFiles = { [fieldname: string]: Express.Multer.File[] };
+
+const upload: multer.Multer = multer({ storage: multerStorage })
 
 const plansRoutes: Routes = (
     app: express.Application,
@@ -50,10 +64,12 @@ const plansRoutes: Routes = (
     router.post(
         '/',
         // validation,
+        upload.single('plan'),
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const attributes: PlanAttributes = req.body;
-                const plan: PlanInstance = await models.Plan.create(attributes);
+                const file = req.file;
+                const plan: PlanInstance = await models.Plan.create({ ...attributes, file: file?.filename ?? '' });
                 const body: OkResponse = { data: plan };
 
                 res.json(body);
@@ -97,4 +113,3 @@ const plansRoutes: Routes = (
 };
 
 export default plansRoutes;
-    
