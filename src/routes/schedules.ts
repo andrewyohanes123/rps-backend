@@ -83,7 +83,12 @@ const schedulesRoutes: Routes = (
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const { id }: any = req.params;
-                const schedule: ScheduleInstance | null = await models.Schedule.findByPk(id);
+                const schedule: ScheduleInstance | null = await models.Schedule.findByPk(id, {
+                    include: [{
+                        model: models.Subject,
+                        attributes: ['name']
+                    }]
+                });
                 if (!schedule) throw new NotFoundError('Schedule tidak ditemukan');
                 await schedule.destroy();
                 const body: OkResponse = { data: schedule };
@@ -97,4 +102,3 @@ const schedulesRoutes: Routes = (
 };
 
 export default schedulesRoutes;
-    

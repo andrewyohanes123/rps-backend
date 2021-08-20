@@ -6,6 +6,8 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 export interface SubjectAttributes {
 	id?: number;
   name: string;
+	type: "Praktek" | "Teori";
+	semester_id?: number;
 	created_at?: Date;
 	updated_at?: Date;
 }
@@ -25,7 +27,11 @@ export const SubjectFactory: Factory<SubjectInstance, SubjectAttributes> = (
     name: {
       type: DataTypes.STRING(191),
       allowNull: false
-    }
+    },
+		type: {
+			type: DataTypes.ENUM(['Praktek', "Teori"]),
+			allowNull: false
+		}
 	};
 	const Subject: Sequelize.Model<SubjectInstance, SubjectAttributes> = sequelize.define<
 		SubjectInstance,
@@ -34,6 +40,7 @@ export const SubjectFactory: Factory<SubjectInstance, SubjectAttributes> = (
 
 	Subject.associate = (models: ModelFactoryInterface): void => {
 		Subject.hasMany(models.Schedule, { onDelete: 'cascade' });
+		Subject.belongsTo(models.Semester, { onDelete: 'cascade' });
 	};
 
 	return Subject;
