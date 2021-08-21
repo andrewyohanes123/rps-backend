@@ -91,6 +91,14 @@ app.get(
 	},
 );
 
+app.get(
+	'/public/files/:file',
+	(req: express.Request<{ file: string }>, res: express.Response): void => {
+		const { file } = req.params;
+		res.sendFile(path.resolve(__dirname, '..', 'uploads', file));
+	},
+);
+
 /** root route */
 if (process.env.NODE_ENV === 'development') {
 	app.use(express.static(path.resolve(__dirname, '..', 'inspector')));
