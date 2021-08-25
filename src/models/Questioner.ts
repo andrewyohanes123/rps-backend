@@ -6,10 +6,7 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 export interface QuestionerAttributes {
 	id?: number;
   question: string;
-  answer: string;
   user_id?: number;
-  class_room_id?: number;
-  schedule_id?: number;
 	created_at?: Date;
 	updated_at?: Date;
 }
@@ -29,10 +26,6 @@ export const QuestionerFactory: Factory<QuestionerInstance, QuestionerAttributes
     question: {
       type: DataTypes.STRING(191),
       allowNull: false
-    },
-    answer: {
-      type: DataTypes.STRING(191),
-      allowNull: false
     }
 	};
 	const Questioner: Sequelize.Model<QuestionerInstance, QuestionerAttributes> = sequelize.define<
@@ -41,8 +34,7 @@ export const QuestionerFactory: Factory<QuestionerInstance, QuestionerAttributes
 	>('questioner', attributes, { underscored: true });
 
 	Questioner.associate = (models: ModelFactoryInterface): void => {
-		Questioner.belongsTo(models.Schedule, { onDelete: 'cascade' });
-		Questioner.belongsTo(models.ClassRoom, { onDelete: 'cascade' });
+		Questioner.hasMany(models.Student, { onDelete: 'cascade' });
 		Questioner.belongsTo(models.User, { onDelete: 'cascade' });
 	};
 

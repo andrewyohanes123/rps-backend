@@ -5,8 +5,7 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 
 export interface ScheduleAttributes {
 	id?: number;
-	day_name: string;
-	hour: string;
+	daytime: string;
 	user_id?: number;
 	class_room_id?: number;
 	subject_id?: number;
@@ -25,13 +24,9 @@ export const ScheduleFactory: Factory<ScheduleInstance, ScheduleAttributes> = (
 	sequelize: Sequelize.Sequelize,
 	DataTypes: Sequelize.DataTypes,
 ): Sequelize.Model<ScheduleInstance, ScheduleAttributes> => {
-	const attributes: SequelizeAttributes<ScheduleAttributes> = {
-		day_name: {
-			type: DataTypes.STRING(191),
-			allowNull: false
-		},
-		hour: {
-			type: DataTypes.STRING(191),
+	const attributes: SequelizeAttributes<ScheduleAttributes> = {		
+		daytime: {
+			type: DataTypes.DATE,
 			allowNull: false
 		}
 	};

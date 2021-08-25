@@ -18,6 +18,8 @@ const usersRoute: Routes = (
 ): express.Router => {
 	const router: express.Router = express.Router();
 
+	router.use(onlyAuth());
+
 	router.get(
 		'/',
 		Parser.validateQ(),
