@@ -7,6 +7,8 @@ export interface QuestionerResponseAttributes {
 	id?: number;
   answer: string;
 	semester_id?: number;
+	questioner_id?: number;
+	student_id?: number;
 	created_at?: Date;
 	updated_at?: Date;
 }

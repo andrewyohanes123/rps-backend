@@ -44,6 +44,7 @@ export const StudentFactory: Factory<StudentInstance, StudentAttributes> = (
 		Student.belongsTo(models.ClassRoom, { onDelete: 'cascade' });
 		Student.belongsTo(models.Semester, { onDelete: 'cascade' });
 		Student.belongsTo(models.Schedule, { onDelete: 'cascade' });
+		Student.hasMany(models.QuestionerResponse, { onDelete: 'cascade' });
 	};
 
 	return Student;

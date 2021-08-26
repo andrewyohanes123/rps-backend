@@ -24,7 +24,7 @@ export const QuestionerFactory: Factory<QuestionerInstance, QuestionerAttributes
 ): Sequelize.Model<QuestionerInstance, QuestionerAttributes> => {
 	const attributes: SequelizeAttributes<QuestionerAttributes> = {
     question: {
-      type: DataTypes.STRING(191),
+      type: DataTypes.TEXT,
       allowNull: false
     }
 	};
@@ -35,6 +35,7 @@ export const QuestionerFactory: Factory<QuestionerInstance, QuestionerAttributes
 
 	Questioner.associate = (models: ModelFactoryInterface): void => {
 		Questioner.hasMany(models.Student, { onDelete: 'cascade' });
+		Questioner.hasMany(models.QuestionerResponse, { onDelete: 'cascade' });
 		Questioner.belongsTo(models.User, { onDelete: 'cascade' });
 	};
 
