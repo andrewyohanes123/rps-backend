@@ -1,4 +1,3 @@
-
 import express from 'express';
 import ModelFactoryInterface from '../models/typings/ModelFactoryInterface';
 import { Routes } from './typings/RouteInterface';
@@ -8,7 +7,16 @@ import { PaginatedResult } from './typings/QueryInterface';
 import sequelize from 'sequelize';
 import { Parser } from '../helpers/Parser';
 import NotFoundError from '../classes/NotFoundError';
-import { StudentInstance, StudentAttributes } from '../models/Student';
+import { StudentInstance, StudentAttributes, StudentFactory } from '../models/Student';
+
+interface createStudent extends StudentAttributes {
+    questions: {
+        question: {
+            id: number;
+            answer: string
+        }
+    }[];
+}
 
 const studentsRoutes: Routes = (
     app: express.Application,
@@ -52,8 +60,16 @@ const studentsRoutes: Routes = (
         // validation,
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
-                const attributes: StudentAttributes = req.body;
+                const attributes: createStudent = req.body;
+                const { questions } = attributes;
                 const student: StudentInstance = await models.Student.create(attributes);
+                questions.forEach(async ({ question: { id, answer } }) => {
+                    try {
+                        await models.QuestionerResponse.create({ questioner_id: id, answer, student_id: student.id });
+                    } catch (error) {
+                        console.log(error);
+                    }
+                })
                 const body: OkResponse = { data: student };
 
                 res.json(body);
@@ -97,4 +113,3 @@ const studentsRoutes: Routes = (
 };
 
 export default studentsRoutes;
-    

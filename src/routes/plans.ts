@@ -20,9 +20,9 @@ const multerStorage: multer.StorageEngine = multer.diskStorage({
     destination: path.resolve(__dirname, '..', '..', 'uploads')
 })
 
-type multerFiles = { [fieldname: string]: Express.Multer.File[] };
+export type multerFiles = { [fieldname: string]: Express.Multer.File[] };
 
-const upload: multer.Multer = multer({ storage: multerStorage })
+export const upload: multer.Multer = multer({ storage: multerStorage })
 
 const plansRoutes: Routes = (
     app: express.Application,

@@ -9,6 +9,7 @@ import sequelize from 'sequelize';
 import { Parser } from '../helpers/Parser';
 import NotFoundError from '../classes/NotFoundError';
 import { ReportInstance, ReportAttributes } from '../models/Report';
+import { upload } from './plans';
 
 const reportsRoutes: Routes = (
     app: express.Application,
@@ -50,10 +51,12 @@ const reportsRoutes: Routes = (
     router.post(
         '/',
         // validation,
+        upload.single('report'),
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const attributes: ReportAttributes = req.body;
-                const report: ReportInstance = await models.Report.create(attributes);
+                const file = req.file;
+                const report: ReportInstance = await models.Report.create({...attributes, file: file?.filename ?? '', description: []});
                 const body: OkResponse = { data: report };
 
                 res.json(body);

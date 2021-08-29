@@ -9,6 +9,7 @@ export interface ReportAttributes {
   description: {[any: string]: any}[];
   user_id?: number;
   schedule_id?: number;
+	class_room_id?: number;
 	created_at?: Date;
 	updated_at?: Date;
 }
