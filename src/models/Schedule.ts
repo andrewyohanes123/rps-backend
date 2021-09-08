@@ -5,7 +5,14 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 
 export interface ScheduleAttributes {
 	id?: number;
-	daytime: string;
+	week_count: number;
+	capabilities: string;
+	study_material: string;
+	study_method: string;
+	indicator: string;
+	scoring_format_criteria: string;
+	description: string;
+	value: number;
 	user_id?: number;
 	class_room_id?: number;
 	subject_id?: number;
@@ -25,10 +32,39 @@ export const ScheduleFactory: Factory<ScheduleInstance, ScheduleAttributes> = (
 	DataTypes: Sequelize.DataTypes,
 ): Sequelize.Model<ScheduleInstance, ScheduleAttributes> => {
 	const attributes: SequelizeAttributes<ScheduleAttributes> = {		
-		daytime: {
-			type: DataTypes.DATE,
+		week_count: {
+			type: DataTypes.INTEGER(32),
+			allowNull: false,
+			defaultValue: 1
+		},
+		capabilities: {
+			type: DataTypes.TEXT,
 			allowNull: false
-		}
+		},
+		description: {
+			type: DataTypes.TEXT,
+			allowNull: false
+		},
+		indicator: {
+			type: DataTypes.TEXT,
+			allowNull: false
+		},
+		scoring_format_criteria: {
+			type: DataTypes.TEXT,
+			allowNull: false
+		},
+		study_material: {
+			type: DataTypes.TEXT,
+			allowNull: false
+		},
+		study_method: {
+			type: DataTypes.TEXT,
+			allowNull: false
+		},
+		value: {
+			type: DataTypes.TEXT,
+			allowNull: false
+		},
 	};
 	const Schedule: Sequelize.Model<ScheduleInstance, ScheduleAttributes> = sequelize.define<
 		ScheduleInstance,

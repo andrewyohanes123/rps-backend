@@ -5,8 +5,7 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 
 export interface ReportAttributes {
 	id?: number;
-  file: string;
-  description: {[any: string]: any}[];
+  check: boolean;
   user_id?: number;
   schedule_id?: number;
 	class_room_id?: number;
@@ -26,14 +25,11 @@ export const ReportFactory: Factory<ReportInstance, ReportAttributes> = (
 	DataTypes: Sequelize.DataTypes,
 ): Sequelize.Model<ReportInstance, ReportAttributes> => {
 	const attributes: SequelizeAttributes<ReportAttributes> = {
-    file: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.JSONB,
-      allowNull: false
-    }
+    check: {
+			type: DataTypes.BOOLEAN,
+			allowNull: false,
+			defaultValue: false
+		}
 	};
 	const Report: Sequelize.Model<ReportInstance, ReportAttributes> = sequelize.define<
 		ReportInstance,
