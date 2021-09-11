@@ -6,7 +6,7 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 export interface SemesterAttributes {
 	id?: number;
   name: string;
-  year: Date;
+  year: string;
 	created_at?: Date;
 	updated_at?: Date;
 }

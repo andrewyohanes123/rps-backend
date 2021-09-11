@@ -7,9 +7,10 @@ export interface SubjectAttributes {
 	id?: number;
   name: string;
 	code: number;
-	type: "Praktek" | "Teori";
-	program_study_achievement: string;
-	subject_achievement: string;
+	practice?: boolean;
+	theory?: boolean;
+	program_study_achievement?: string;
+	subject_achievement?: string;
 	subject_weight: number;
 	semester_id?: number;
 	creator_id?: number;
@@ -43,9 +44,15 @@ export const SubjectFactory: Factory<SubjectInstance, SubjectAttributes> = (
 			type: DataTypes.INTEGER(12),
 			allowNull: false
 		},
-		type: {
-			type: DataTypes.ENUM(['Praktek', "Teori"]),
-			allowNull: false
+		practice: {
+			type: DataTypes.BOOLEAN,
+			allowNull: true,
+			defaultValue: false
+		},
+		theory: {
+			type: DataTypes.BOOLEAN,
+			allowNull: true,
+			defaultValue: false
 		},
 		subject_weight: {
 			type: DataTypes.INTEGER(8),
@@ -53,19 +60,19 @@ export const SubjectFactory: Factory<SubjectInstance, SubjectAttributes> = (
 		},
 		subject_achievement: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		program_study_achievement: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		software: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		hardware: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		guide: {
 			type: DataTypes.TEXT,

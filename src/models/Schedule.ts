@@ -6,12 +6,12 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 export interface ScheduleAttributes {
 	id?: number;
 	week_count: number;
-	capabilities: string;
-	study_material: string;
-	study_method: string;
-	indicator: string;
-	scoring_format_criteria: string;
-	description: string;
+	capabilities?: string;
+	study_material?: string;
+	study_method?: string;
+	indicator?: string;
+	scoring_format_criteria?: string;
+	description?: string;
 	value: number;
 	user_id?: number;
 	class_room_id?: number;
@@ -39,27 +39,27 @@ export const ScheduleFactory: Factory<ScheduleInstance, ScheduleAttributes> = (
 		},
 		capabilities: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		description: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		indicator: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		scoring_format_criteria: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		study_material: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		study_method: {
 			type: DataTypes.TEXT,
-			allowNull: false
+			allowNull: true
 		},
 		value: {
 			type: DataTypes.TEXT,
