@@ -11,7 +11,9 @@ export interface SubjectAttributes {
 	theory?: boolean;
 	program_study_achievement?: string;
 	subject_achievement?: string;
-	subject_weight: number;
+	theory_weight: number;
+	practice_weight?: number;
+	subject_cluster: string;
 	semester_id?: number;
 	creator_id?: number;
 	coordinator_id?: number;
@@ -44,6 +46,10 @@ export const SubjectFactory: Factory<SubjectInstance, SubjectAttributes> = (
 			type: DataTypes.INTEGER(12),
 			allowNull: false
 		},
+		subject_cluster: {
+			type: DataTypes.STRING(191),
+			allowNull: false
+		},
 		practice: {
 			type: DataTypes.BOOLEAN,
 			allowNull: true,
@@ -54,9 +60,13 @@ export const SubjectFactory: Factory<SubjectInstance, SubjectAttributes> = (
 			allowNull: true,
 			defaultValue: false
 		},
-		subject_weight: {
+		theory_weight: {
 			type: DataTypes.INTEGER(8),
 			allowNull: false
+		},
+		practice_weight: {
+			type: DataTypes.INTEGER(8),
+			allowNull: true
 		},
 		subject_achievement: {
 			type: DataTypes.TEXT,
