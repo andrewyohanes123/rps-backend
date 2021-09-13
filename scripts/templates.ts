@@ -48,7 +48,7 @@ const $model_v$sRoutes: Routes = (
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const parsed: sequelize.FindOptions<$model$Instance> = Parser.parseQuery<$model$Instance>(
-                    req.query.q,
+                    \`\$\{req.query.q\}\`,
                     models,
                 );
                 const data: PaginatedResult<$model$Instance> = await models.$model$.findAndCountAll(parsed);

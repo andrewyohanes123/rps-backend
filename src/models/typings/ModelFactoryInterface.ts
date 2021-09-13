@@ -12,6 +12,7 @@ import { ReportAttributes, ReportInstance } from '../Report';
 import { QuestionerResponseAttributes, QuestionerResponseInstance } from '../QuestionerResponse';
 import { StudentAttributes, StudentInstance } from '../Student';
 import { SupportLecturerAttributes, SupportLecturerInstance } from '../SupportLecturer';
+import { ClassRoomSubjectAttributes, ClassRoomSubjectInstance } from '../ClassRoomSubject';
 
 interface Obj {
 	[s: string]: any;
@@ -33,4 +34,5 @@ export default interface ModelFactoryInterface extends Obj {
 	QuestionerResponse: Sequelize.Model<QuestionerResponseInstance, QuestionerResponseAttributes>;
 	Student: Sequelize.Model<StudentInstance, StudentAttributes>;
 	SupportLecturer: Sequelize.Model<SupportLecturerInstance, SupportLecturerAttributes>;
+	ClassRoomSubject: Sequelize.Model<ClassRoomSubjectInstance, ClassRoomSubjectAttributes>;
 }

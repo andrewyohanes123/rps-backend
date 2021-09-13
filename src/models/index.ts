@@ -13,6 +13,7 @@ import { ReportFactory } from './Report';
 import { StudentFactory } from './Student';
 import { QuestionerResponseFactory } from './QuestionerResponse';
 import { SupportLecturerFactory } from './SupportLecturer';
+import { ClassRoomSubjectFactory } from './ClassRoomSubject';
 
 const createModels: Function = (): ModelFactoryInterface => {
 	const {
@@ -47,7 +48,8 @@ const createModels: Function = (): ModelFactoryInterface => {
 		Report: ReportFactory(sequelize, Sequelize),
 		Student: StudentFactory(sequelize, Sequelize),
 		QuestionerResponse: QuestionerResponseFactory(sequelize, Sequelize),
-		SupportLecturer: SupportLecturerFactory(sequelize, Sequelize)
+		SupportLecturer: SupportLecturerFactory(sequelize, Sequelize),
+		ClassRoomSubject: ClassRoomSubjectFactory(sequelize, Sequelize)
 	};
 
 	Object.keys(db).forEach(
