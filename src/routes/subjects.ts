@@ -38,7 +38,18 @@ const subjectsRoutes: Routes = (
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const { id }: any = req.params;
-                const subject: SubjectInstance | null = await models.Subject.findByPk(id);
+                const subject: SubjectInstance | null = await models.Subject.findByPk(id, {
+                    include: [
+                        { model: models.User, as: 'Coordinator' },
+                        { model: models.User, as: 'Creator' },
+                        { model: models.User, as: 'ProgramChief' },
+                        {
+                            model: models.SupportLecturer, include: [{
+                                model: models.User
+                            }]
+                        },
+                    ]
+                });
                 if (!subject) throw new NotFoundError('Subject tidak ditemukan');
                 const body: OkResponse = { data: subject };
 
@@ -97,4 +108,3 @@ const subjectsRoutes: Routes = (
 };
 
 export default subjectsRoutes;
-    

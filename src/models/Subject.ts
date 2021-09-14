@@ -104,6 +104,7 @@ export const SubjectFactory: Factory<SubjectInstance, SubjectAttributes> = (
 		Subject.belongsTo(models.User, { onDelete: 'cascade', as: 'Creator' });
 		Subject.belongsTo(models.User, { onDelete: 'cascade', as: 'Coordinator' });
 		Subject.belongsTo(models.User, { onDelete: 'cascade', as: 'ProgramChief' });
+		Subject.hasMany(models.SupportLecturer, { onDelete: 'cascade' });
 	};
 
 	return Subject;
