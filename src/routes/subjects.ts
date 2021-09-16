@@ -9,6 +9,12 @@ import sequelize from 'sequelize';
 import { Parser } from '../helpers/Parser';
 import NotFoundError from '../classes/NotFoundError';
 import { SubjectInstance, SubjectAttributes } from '../models/Subject';
+import onlyAuth from '../middlewares/protector/auth';
+import { SupportLecturerInstance } from '../models/SupportLecturer';
+
+interface subjectPost extends SubjectAttributes {
+    support_lecturers: number[];
+}
 
 const subjectsRoutes: Routes = (
     app: express.Application,
@@ -61,10 +67,15 @@ const subjectsRoutes: Routes = (
     router.post(
         '/',
         // validation,
+        onlyAuth(),
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
-                const attributes: SubjectAttributes = req.body;
+                const attributes: subjectPost = req.body;
+                const { support_lecturers } = attributes;
                 const subject: SubjectInstance = await models.Subject.create(attributes);
+                support_lecturers.forEach(async lecturer => {
+                    await models.SupportLecturer.create({ user_id: lecturer, subject_id: subject.id });
+                })
                 const body: OkResponse = { data: subject };
 
                 res.json(body);
@@ -75,11 +86,27 @@ const subjectsRoutes: Routes = (
     router.put(
         '/:id',
         // validation,
+        onlyAuth(),
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const { id }: any = req.params;
-                const attributes: SubjectAttributes = req.body;
+                const attributes: subjectPost = req.body;
+                const { support_lecturers: supports } = attributes;
                 const subject: SubjectInstance | null = await models.Subject.findByPk(id);
+                const supportLecturers: SupportLecturerInstance[] = await models.SupportLecturer.findAll({
+                    where: {
+                        subject_id: id
+                    }
+                });
+                supportLecturers.forEach(async lecturer => {
+                    await lecturer.destroy();
+                });
+                supports.forEach(async lecturer => {
+                    await models.SupportLecturer.create({
+                        user_id: lecturer,
+                        subject_id: id
+                    });
+                });
                 if (!subject) throw new NotFoundError('Subject tidak ditemukan');
                 const updatedSubject: SubjectInstance = await subject.update(attributes);
                 const body: OkResponse = { data: updatedSubject };
@@ -91,6 +118,7 @@ const subjectsRoutes: Routes = (
 
     router.delete(
         '/:id',
+        onlyAuth(),
         a(
             async (req: express.Request, res: express.Response): Promise<void> => {
                 const { id }: any = req.params;
