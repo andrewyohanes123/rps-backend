@@ -26,6 +26,11 @@ const schedulesRoutes: Routes = (
                     models,
                 );
                 const data: PaginatedResult<ScheduleInstance> = await models.Schedule.findAndCountAll(parsed);
+                let week: number = 0;
+                data.rows.forEach((row: ScheduleInstance, idx: number) => {
+                    week = week + row.week_count + idx;
+                    row.week_number = row.week_count + week;
+                });
                 const body: OkResponse = { data };
 
                 res.json(body);

@@ -18,6 +18,7 @@ export interface ScheduleAttributes {
 	subject_id?: number;
 	created_at?: Date;
 	updated_at?: Date;
+	week_number?: number;
 }
 
 export interface ScheduleInstance extends Sequelize.Instance<ScheduleAttributes>, ScheduleAttributes {
