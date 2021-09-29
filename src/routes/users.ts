@@ -18,8 +18,6 @@ const usersRoute: Routes = (
 ): express.Router => {
 	const router: express.Router = express.Router();
 
-	router.use(onlyAuth());
-
 	router.get(
 		'/',
 		Parser.validateQ(),
@@ -54,6 +52,7 @@ const usersRoute: Routes = (
 	router.post(
 		'/',
 		createUser,
+		onlyAuth(),
 		a(
 			async (req: express.Request, res: express.Response): Promise<void> => {
 				const data: UserAttributes = req.body;
@@ -71,6 +70,7 @@ const usersRoute: Routes = (
 	router.put(
 		'/:id',
 		editUser,
+		onlyAuth(),
 		a(
 			async (req: express.Request, res: express.Response): Promise<void> => {
 				const { id }: any = req.params;
