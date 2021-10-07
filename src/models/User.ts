@@ -9,6 +9,7 @@ export interface UserAttributes {
 	type: 'lecturer' | 'chief' | 'administrator';
 	username: string;
 	password: string;
+	class_room_id?: number;
 	created_at?: Date;
 	updated_at?: Date;
 }
@@ -30,7 +31,7 @@ export const UserFactory: Factory<UserInstance, UserAttributes> = (
 			allowNull: false,
 		},
 		type: {
-			type: DataTypes.ENUM(['lecturer', 'chief', 'administrator']),
+			type: DataTypes.ENUM(['lecturer', 'chief', 'administrator', 'chairman']),
 			allowNull: false
 		},
 		username: {
@@ -50,6 +51,7 @@ export const UserFactory: Factory<UserInstance, UserAttributes> = (
 
 	User.associate = (models: ModelFactoryInterface): void => {
 		User.hasMany(models.Token, { onDelete: 'cascade' });
+		User.belongsTo(models.ClassRoom, { onDelete: 'cascade' });
 	};
 
 	return User;

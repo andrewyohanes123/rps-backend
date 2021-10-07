@@ -6,6 +6,7 @@ import ModelFactoryInterface from './typings/ModelFactoryInterface';
 export interface ReportAttributes {
 	id?: number;
   check: boolean;
+	note?: string;
   user_id?: number;
   schedule_id?: number;
 	class_room_id?: number;
@@ -29,6 +30,11 @@ export const ReportFactory: Factory<ReportInstance, ReportAttributes> = (
 			type: DataTypes.BOOLEAN,
 			allowNull: false,
 			defaultValue: false
+		},
+		note: {
+			type: DataTypes.TEXT,
+			allowNull: true,
+			defaultValue: ''
 		}
 	};
 	const Report: Sequelize.Model<ReportInstance, ReportAttributes> = sequelize.define<
@@ -39,7 +45,9 @@ export const ReportFactory: Factory<ReportInstance, ReportAttributes> = (
 	Report.associate = (models: ModelFactoryInterface): void => {
 		Report.belongsTo(models.Schedule, { onDelete: 'cascade' });
 		Report.belongsTo(models.ClassRoom, { onDelete: 'cascade' });
-		Report.belongsTo(models.User, { onDelete: 'cascade' });
+		Report.belongsTo(models.User, { onDelete: 'cascade', as: 'Chief' });
+		Report.belongsTo(models.User, { onDelete: 'cascade', as: 'Lecturer' });
+		Report.belongsTo(models.User, { onDelete: 'cascade', as: 'Chairman' });
 	};
 
 	return Report;

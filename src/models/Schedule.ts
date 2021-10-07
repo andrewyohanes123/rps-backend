@@ -76,7 +76,7 @@ export const ScheduleFactory: Factory<ScheduleInstance, ScheduleAttributes> = (
 		Schedule.belongsTo(models.ClassRoom, { onDelete: 'cascade' });
 		Schedule.belongsTo(models.Subject, { onDelete: 'cascade' });
 		Schedule.belongsTo(models.User, { onDelete: 'cascade' });
-		Schedule.hasMany(models.Report, { onDelete: 'cascade' });
+		Schedule.hasOne(models.Report, { onDelete: 'cascade' });
 	};
 
 	return Schedule;
