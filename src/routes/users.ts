@@ -77,7 +77,11 @@ const usersRoute: Routes = (
 				const data: UserAttributes = req.body;
 				const user: UserInstance | null = await models.User.findOne({ where: { id } });
 				if (!user) throw new NotFoundError('User tidak ditemukan');
-				await user.update({ ...data, password: bcrypt.hashSync(data.password, 10) });
+				if (typeof data.password !== 'undefined') {
+					await user.update({ ...data, password: bcrypt.hashSync(data.password, 10) });
+				} else {
+					await user.update({ ...data });
+				}
 				const body: OkResponse = { data: user };
 
 				res.json(body);
