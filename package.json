@@ -15,7 +15,8 @@
     "route:create": "ts-node ./scripts/route.create.ts",
     "db:clean": "ts-node ./scripts/db.clean.ts",
     "default:user": "ts-node ./scripts/default.user.ts",
-    "fill:semesters": "ts-node ./scripts/fill.semesters.ts"
+    "fill:semesters": "ts-node ./scripts/fill.semesters.ts",
+    "db:continue-sequence": "ts-node ./scripts/db.continue_sequence.ts"
   },
   "author": "",
   "license": "ISC",
